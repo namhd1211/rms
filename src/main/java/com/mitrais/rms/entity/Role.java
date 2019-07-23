@@ -11,8 +11,6 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +18,11 @@ public class Role {
     private String name;
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
+
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role() {
+    }
 }
