@@ -6,7 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -18,7 +17,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty
-    @Size(min = 6, max = 6)
     private String userName;
     @NotEmpty
     private String password;

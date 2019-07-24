@@ -56,6 +56,7 @@
                 <input type="text" class="form-control" id="username" name="username" placeholder="User name"
                        th:field="*{userName}"/>
                 <span class="error" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
+                <span class="error" th:text="${existed}"></span>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
