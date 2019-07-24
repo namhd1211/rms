@@ -2,6 +2,7 @@ package com.mitrais.rms.service.impl;
 
 import com.mitrais.rms.entity.Role;
 import com.mitrais.rms.entity.User;
+import com.mitrais.rms.exception.UserNotFoundException;
 import com.mitrais.rms.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,7 +28,7 @@ public class UserDetailsServiceImpl implements org.springframework.security.core
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUserName(username);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UserNotFoundException("User not found");
         }
         Set<GrantedAuthority> authorities = new HashSet<>();
         for (Role role : user.getRoles()) {

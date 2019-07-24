@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style type="text/css">
+        body {
+            color: #404E67;
+            background: #F5F7FA;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .wrapper {
+            width: 500px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">RMS</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="/user">User</a></li>
+            <!--            <li><a href="#">Page 2</a></li>-->
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <!--            <li><a href="/admin/save"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
+            <li><a href="/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8"><h2>Edit User</h2></div>
+            </div>
+        </div>
+        <form th:action="@{/admin/save}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label for="username">User Name</label>
+                <input type="hidden" name="username" th:field="*{id}" />
+                <input type="text" class="form-control" id="username" name="username" placeholder="User name" th:field="*{userName}" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" th:field="*{password}" />
+            </div>
+            <div class="form-check">
+                <th:block th:each="role : *{roles}">
+                <input type="checkbox" class="form-check-input" th:field="*{roles}" th:value="${role.id}">
+                <label class="form-check-label" th:text="${role.name}"></label>
+                </th:block>
+            </div>
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
