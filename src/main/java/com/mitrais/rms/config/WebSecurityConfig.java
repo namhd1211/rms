@@ -42,15 +42,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
-                .antMatchers("/login", "/index")
+                .antMatchers("/login", "/admin/**")
                 .permitAll()
                 .antMatchers("/user").hasAnyRole("MEMBER", "ADMIN")
-                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")
-                .usernameParameter("username")
-                .passwordParameter("password")
+                .usernameParameter("accNo")
+                .passwordParameter("accPin")
                 .defaultSuccessUrl("/index")
                 .and()
                 .exceptionHandling().accessDeniedPage("/403");

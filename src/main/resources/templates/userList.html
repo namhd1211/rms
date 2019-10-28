@@ -92,7 +92,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="/user">User</a></li>
+            <li><a href="/accounts">User</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
@@ -123,9 +123,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.userName}"></td>
-                <td th:text="${user.password}"></td>
+            <tr th:each="user : ${accounts}">
+                <td th:text="${accounts.userName}"></td>
+                <td th:text="${accounts.password}"></td>
                 <td>
                     <a class="edit" title="Edit" data-toggle="tooltip" th:href="@{/admin/edit/__${user.id}__}"><i
                             class="material-icons">&#xE254;</i></a>

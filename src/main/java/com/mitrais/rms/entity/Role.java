@@ -16,13 +16,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
     @ManyToMany(mappedBy = "roles")
-    private List<User> users;
-
-    public Role(String name) {
-        this.name = name;
-    }
-
-    public Role() {
-    }
+    private List<Account> accounts ;
 }

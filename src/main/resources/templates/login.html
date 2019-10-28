@@ -43,14 +43,14 @@
 <body>
 <div class="login-form">
     <form th:action="@{/login}" method="POST">
-        <p th:if="${param.error}" class="error">Invalid email or password</p>
+        <p th:if="${param.error}" class="error">Invalid Account Number or PIN</p>
         <p class="success" th:text="${logout}"></p>
         <h2 class="text-center">Log in</h2>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Username" name="username">
+            <input type="text" class="form-control" placeholder="Account Number" name="accNo">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" name="password">
+            <input type="password" class="form-control" placeholder="PIN" name="accPin">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>
