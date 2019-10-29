@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements org.springframework.security.core
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String accNo) {
-        Account account = accountRepository.findAccountByAccNo(accNo).orElseThrow(() -> new UserNotFoundException("Account Number" + accNo + " not fount"));
+        Account account = accountRepository.findAccountByAccNo(accNo);
         Set<GrantedAuthority> authorities = new HashSet<>();
         for (Role role : account.getRoles()) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));

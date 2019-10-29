@@ -85,31 +85,17 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">RMS</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="/accounts">User</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-        </ul>
-    </div>
-</nav>
+<div th:replace="header :: header"/>
 <div class="container">
     <div class="table-wrapper">
         <div class="table-title">
             <div class="row">
-                <div class="col-sm-8"><h2>User <b>Details</b></h2></div>
+                <div class="col-sm-8"><h2>Account <b>Details</b></h2></div>
                 <div class="col-sm-4">
                     <a href="/admin/save">
-                    <button type="button" class="btn btn-info add-new"><i
-                            class="fa fa-plus"></i>Add New
-                    </button>
+                        <button type="button" class="btn btn-info add-new"><i
+                                class="fa fa-plus"></i>Add New
+                        </button>
                     </a>
                 </div>
             </div>
@@ -117,19 +103,21 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>UserName</th>
-                <th>Password</th>
-                <th>Actions</th>
+                <th>Account Name</th>
+                <th>Account Number</th>
+                <th>Balance</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${accounts}">
-                <td th:text="${accounts.userName}"></td>
-                <td th:text="${accounts.password}"></td>
+            <tr th:each="account : ${accounts}">
+                <td th:text="${account.accName}"></td>
+                <td th:text="${account.accNo}"></td>
+                <td th:text="${account.balance}"></td>
                 <td>
-                    <a class="edit" title="Edit" data-toggle="tooltip" th:href="@{/admin/edit/__${user.id}__}"><i
+                    <a class="edit" title="Edit" data-toggle="tooltip" th:href="@{/admin/edit/__${account.id}__}"><i
                             class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip" th:href="@{/admin/delete/__${user.id}__}"><i
+                    <a class="delete" title="Delete" data-toggle="tooltip" th:href="@{/admin/delete/__${account.id}__}"><i
                             class="material-icons">&#xE872;</i></a>
                 </td>
             </tr>

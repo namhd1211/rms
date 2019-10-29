@@ -1,4 +1,4 @@
-package com.mitrais.rms.service.impl;
+package com.mitrais.rms.service;
 
 import com.mitrais.rms.dto.AccountDTO;
 import com.mitrais.rms.entity.Account;

@@ -19,12 +19,12 @@ import java.util.List;
 public class AccountDTO {
     private String accName;
     @NotEmpty
-    @Length(min = 6, max = 6, message = "Account Number should have 6 digits length")
-    @Pattern(regexp = "^[0-9]*$", message = "Account Number should only contains numbers")
+    @Length(min = 6, max = 6, message = "{account.length}")
+    @Pattern(regexp = "^[0-9]*$", message = "{account.format}")
     private String accNo;
     @NotEmpty
-    @Length(min = 6, max = 6, message = "PIN should have 6 digits length")
-    @Pattern(regexp = "^[0-9]*$", message = "PIN should only contains numbers")
+    @Length(min = 6, max = 6, message = "{pin.length}")
+    @Pattern(regexp = "^[0-9]*$", message = "{pin.format}")
     private String accPin;
     private BigDecimal balance;
     private List<Role> roles;

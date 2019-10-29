@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WithDraw</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style type="text/css">
+        body {
+            color: #404E67;
+            background: #F5F7FA;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .wrapper {
+            width: 800px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+        .error{
+            color: red;
+        }
+    </style>
+    <script type="text/javascript">
+        function changetextbox()
+        {
+            if (document.getElementById("rdOther").value === "0") {
+                document.getElementById("other").disable='true';
+            } else {
+                document.getElementById("other").disable='';
+            }
+            alert("abc");
+        }
+    </script>
+</head>
+<body>
+<div th:replace="header :: header"/>
+<div class="container">
+    <div class="wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8"><h2>WithDraw</h2></div>
+            </div>
+        </div>
+        <form th:action="@{/withdraw}" th:object="${transaction}" method="post">
+            <div>
+                <span class="error" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span>
+            </div>
+            <div class="form-group">
+                <input type="radio" class="" name="amount" th:field="*{amount}"  th:value="10"/>10$
+            </div>
+            <div class="form-group">
+                <input type="radio" class="" name="amount" th:field="*{amount}" th:value="50"/>50$
+            </div>
+            <div class="form-group">
+                <input type="radio" class="" name="amount" th:field="*{amount}"  th:value="100"/>100$
+            </div>
+            <div class="form-group">
+                <input type="radio" class="" name="amount" th:field="*{amount}" th:value="0" id="rdOther" onclick="changetextbox();"/>Other
+            </div>
+            <div class="form-group">
+                <input type="text" style="display: none" class="" name="amount" th:field="*{amount}" id="other"/>Other
+                <div>
+                    <span class="error" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Withdraw</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

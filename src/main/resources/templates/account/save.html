@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style type="text/css">
+        body {
+            color: #404E67;
+            background: #F5F7FA;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .wrapper {
+            width: 500px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+        .error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="header :: header"/>
+<div class="container">
+    <div class="wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8"><h2>Add Account</h2></div>
+            </div>
+        </div>
+        <form th:action="@{/admin/save}" th:object="${account}" method="post">
+            <div class="form-group">
+                <label for="accName">Account Name</label>
+                <input type="text" class="form-control" id="accName" name="accName" placeholder="Account Name"
+                       th:field="*{accName}"/>
+                <span class="error" th:if="${#fields.hasErrors('accName')}" th:errors="*{accName}"></span>
+            </div>
+            <div class="form-group">
+                <label for="accNo">Account Number</label>
+                <input type="text" class="form-control" id="accNo" name="accNo" placeholder="Account Number"
+                       th:field="*{accNo}"/>
+                <span class="error" th:if="${#fields.hasErrors('accNo')}" th:errors="*{accNo}"></span>
+                <span class="error" th:text="${existed}"></span>
+            </div>
+            <div class="form-group">
+                <label for="accPin">PIN</label>
+                <input type="text" class="form-control" id="accPin" name="accPin" placeholder="Account PIN"
+                       th:field="*{accPin}"/>
+                <span class="error" th:if="${#fields.hasErrors('accPin')}" th:errors="*{accPin}"></span>
+            </div>
+            <div class="form-group">
+                <label for="balance">Balance</label>
+                <input type="text" class="form-control" id="balance" name="balance" placeholder="Balance"
+                       th:field="*{balance}"/>
+                <span class="error" th:if="${#fields.hasErrors('balance')}" th:errors="*{balance}"></span>
+            </div>
+            <div class="form-group">
+                <th:block th:each="role : ${roles}">
+                    <input type="checkbox" class="form-check-input" th:field="*{roles}" th:value="${role.id}">
+                    <label class="form-check-label" th:text="${role.name}"></label>
+                </th:block>
+                <span class="error" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

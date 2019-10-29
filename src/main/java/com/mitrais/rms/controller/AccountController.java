@@ -3,8 +3,7 @@ package com.mitrais.rms.controller;
 import com.mitrais.rms.dto.AccountDTO;
 import com.mitrais.rms.entity.Account;
 import com.mitrais.rms.repository.RoleRepository;
-import com.mitrais.rms.service.impl.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mitrais.rms.service.AccountService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +20,7 @@ import javax.validation.Valid;
 
 @Controller
 public class AccountController {
+    private static final String ACCOUNT_SAVE = "account/save";
     private final AccountService accountService;
     private final RoleRepository roleRepository;
 
@@ -51,18 +52,18 @@ public class AccountController {
     @GetMapping("/accounts")
     public String listUser(Model model) {
         model.addAttribute("accounts", accountService.listAccount());
-        return "accountList";
+        return "account/account-list";
     }
 
     @PostMapping("/admin/save")
-    public String create(@Valid AccountDTO accountDTO, BindingResult bindingResult, Model model) {
+    public String create(@Valid @ModelAttribute("account") AccountDTO accountDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("roles", roleRepository.findAll());
-            return "save";
+            return ACCOUNT_SAVE;
         }
         if (accountService.findByAccNo(accountDTO.getAccNo()) != null) {
-            model.addAttribute("existed", "Account is existed");
-            return "save";
+            model.addAttribute("existed", "Account Number is existed");
+            return ACCOUNT_SAVE;
         }
         accountService.save(accountDTO);
         return "redirect:/accounts";
@@ -72,12 +73,12 @@ public class AccountController {
     public String create(Model model) {
         model.addAttribute("account", new Account());
         model.addAttribute("roles", roleRepository.findAll());
-        return "save";
+        return ACCOUNT_SAVE;
     }
 
     @GetMapping("/403")
     public String error() {
-        return "403";
+        return "error/403";
     }
 
 }
