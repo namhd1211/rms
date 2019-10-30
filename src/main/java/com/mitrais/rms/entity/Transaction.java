@@ -11,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Setter
@@ -24,7 +24,8 @@ public class Transaction {
     private long id;
     private TransactionType type;
     private BigDecimal amount;
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
     private String srcAcc;
     private String destAcc;
+    private String refNo;
 }

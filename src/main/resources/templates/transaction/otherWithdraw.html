@@ -25,15 +25,6 @@
             color: red;
         }
     </style>
-    <script type="text/javascript">
-        function changetextbox() {
-            if (document.getElementById("rdOther").value === "0") {
-                document.getElementById('amount').style.display = 'block';
-            } else {
-                document.getElementById('amount').style.display = 'none';
-            }
-        }
-    </script>
 </head>
 <body>
 <div th:replace="header :: header"/>
@@ -44,21 +35,13 @@
                 <div class="col-sm-8"><h2>WithDraw</h2></div>
             </div>
         </div>
-        <form th:action="@{/withdraw}" th:object="${transaction}" method="post">
-            <div>
-                <span class="error" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span>
-            </div>
+        <form th:action="@{/otherWithdraw}" th:object="${transaction}" method="post">
             <div class="form-group">
-                <input type="radio" class="" name="amount" th:field="*{amount}" th:value="10"/>10$
-            </div>
-            <div class="form-group">
-                <input type="radio" class="" name="amount" th:field="*{amount}" th:value="50"/>50$
-            </div>
-            <div class="form-group">
-                <input type="radio" class="" name="amount" th:field="*{amount}" th:value="100"/>100$
-            </div>
-            <div class="form-group">
-                <a href="/otherWithdraw">Other</a>
+                <div><span class="error" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span></div>
+                <div><span class="error" th:if="${err != null}" th:text="${err}"></span></div>
+                <label for="amount">Other Amount</label>
+                <input type="text" class="form-control" id="amount" name="amount"
+                       placeholder="Other Amount" th:field="*{amount}"/>
             </div>
             <button type="submit" class="btn btn-primary">Withdraw</button>
         </form>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>transfer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style type="text/css">
+        body {
+            color: #404E67;
+            background: #F5F7FA;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .wrapper {
+            width: 800px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="header :: header"/>
+<div class="container">
+    <div class="wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8"><h2>Transfer</h2></div>
+            </div>
+        </div>
+        <form th:action="@{/transfer}" th:object="${transaction}" method="post">
+            <div class="form-group">
+                <div><span class="error" th:if="${err != null}" th:text="${err}"></span></div>
+            </div>
+            <div class="form-group">
+                <label for="destAcc">Destination Account</label>
+                <input type="text" class="form-control" id="destAcc" name="username" placeholder="Destination Account" th:field="*{destAcc}" />
+                <span class="error" th:if="${#fields.hasErrors('destAcc')}" th:errors="*{destAcc}"></span>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount" th:field="*{amount}" />
+                <span class="error" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span>
+            </div>
+            <div class="form-group">
+                <label for="refNo">Reference Number</label>
+                <input type="text" class="form-control" id="refNo" name="refNo" th:field="*{refNo}" />
+                <span class="error" th:if="${#fields.hasErrors('refNo')}" th:errors="*{refNo}"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Transfer</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
