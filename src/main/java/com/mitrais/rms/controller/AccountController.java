@@ -2,8 +2,8 @@ package com.mitrais.rms.controller;
 
 import com.mitrais.rms.dto.AccountDTO;
 import com.mitrais.rms.entity.Account;
-import com.mitrais.rms.repository.RoleRepository;
 import com.mitrais.rms.service.AccountService;
+import com.mitrais.rms.service.RoleService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -22,11 +22,11 @@ import javax.validation.Valid;
 public class AccountController {
     private static final String ACCOUNT_SAVE = "account/save";
     private final AccountService accountService;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
-    public AccountController(AccountService accountService, RoleRepository roleRepository) {
+    public AccountController(AccountService accountService, RoleService roleService) {
         this.accountService = accountService;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
     }
 
     @GetMapping("/index")
@@ -64,7 +64,7 @@ public class AccountController {
     @PostMapping("/admin/save")
     public String create(@Valid @ModelAttribute("account") AccountDTO accountDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("roles", roleRepository.findAll());
+            model.addAttribute("roles", roleService.findAll());
             return ACCOUNT_SAVE;
         }
         if (accountService.findByAccNo(accountDTO.getAccNo()) != null) {
@@ -78,7 +78,7 @@ public class AccountController {
     @GetMapping("/admin/save")
     public String create(Model model) {
         model.addAttribute("account", new Account());
-        model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("roles", roleService.findAll());
         return ACCOUNT_SAVE;
     }
 

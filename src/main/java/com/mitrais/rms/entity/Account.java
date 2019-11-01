@@ -24,7 +24,7 @@ public class Account {
     private String accPin;
     private BigDecimal balance;
     @NotEmpty
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "account_role",
             joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
