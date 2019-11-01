@@ -28,6 +28,9 @@ create database atm
 ```
   mvn spring-boot:run
   ```
+```
+  You can login with AccNo : 123456 and PIN : 123456
+  ```
   The app will start running at http://localhost:8080.  
  
 
