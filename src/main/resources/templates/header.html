@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
 
@@ -14,16 +14,18 @@
                 <a class="navbar-brand" href="#">ATM</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="/accounts">Account</a></li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/accounts">Account</a></li>
+                <li sec:authorize="hasRole('ROLE_USER')"><a href="/my-accounts">My Account</a></li>
                 <li><a href="/withdraw">Withdraw </a></li>
                 <li><a href="/transfer">Fund Transfer </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/login"><span class="glyphicon glyphicon-user"></span>Login</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-user" sec:authentication="name"></span></a></li>
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
             </ul>
         </div>
     </nav>
 </div>
+<span th:text ="${#authentication.getPrincipal()}"></span>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.mitrais.rms.controller;
 import com.mitrais.rms.dto.TransactionDTO;
 import com.mitrais.rms.service.TransactionService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -37,24 +37,25 @@ public class TransactionController {
     }
 
     @PostMapping("/otherWithdraw")
-    public String otherWithDrawSummary(@Valid @ModelAttribute("transaction") TransactionDTO transactionDTO, BindingResult bindingResult, Model model, Authentication authentication, HttpServletRequest request) {
+    public String otherWithDrawSummary(@Valid @ModelAttribute("transaction") TransactionDTO transactionDTO, BindingResult bindingResult, Model model) {
         String url = "transaction/otherWithdraw";
         if (bindingResult.hasErrors()) {
             return url;
         }
-        return withDrawProcess(transactionDTO, model, authentication, url);
+        return withDrawProcess(transactionDTO, model, url);
     }
 
     @PostMapping("/withdraw")
-    public String withDrawSummary(@Valid @ModelAttribute("transaction") TransactionDTO transactionDTO, BindingResult bindingResult, Model model, Authentication authentication, HttpServletRequest request) {
+        public String withDrawSummary(@Valid @ModelAttribute("transaction") TransactionDTO transactionDTO, BindingResult bindingResult, Model model) {
         String url = "transaction/withdraw";
         if (bindingResult.hasErrors()) {
             return url;
         }
-        return withDrawProcess(transactionDTO, model, authentication, url);
+        return withDrawProcess(transactionDTO, model, url);
     }
 
-    private String withDrawProcess(TransactionDTO transactionDTO, Model model, Authentication authentication, String url) {
+    private String withDrawProcess(TransactionDTO transactionDTO, Model model, String url) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         transactionDTO.setSrcAcc(authentication.getName());
         TransactionDTO transaction;
         try {

@@ -11,6 +11,8 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +21,8 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles")
     private List<Account> accounts ;
+
+    public Role(String name) {
+        this.name = name;
+    }
 }

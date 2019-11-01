@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -92,7 +92,7 @@
             <div class="row">
                 <div class="col-sm-8"><h2>Account <b>Details</b></h2></div>
                 <div class="col-sm-4">
-                    <a href="/admin/save">
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/save">
                         <button type="button" class="btn btn-info add-new"><i
                                 class="fa fa-plus"></i>Add New
                         </button>
@@ -106,7 +106,7 @@
                 <th>Account Name</th>
                 <th>Account Number</th>
                 <th>Balance</th>
-                <th></th>
+                <!--                <th></th>-->
             </tr>
             </thead>
             <tbody>
@@ -114,12 +114,12 @@
                 <td th:text="${account.accName}"></td>
                 <td th:text="${account.accNo}"></td>
                 <td th:text="${account.balance}"></td>
-                <td>
-                    <a class="edit" title="Edit" data-toggle="tooltip" th:href="@{/admin/edit/__${account.id}__}"><i
-                            class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip" th:href="@{/admin/delete/__${account.id}__}"><i
-                            class="material-icons">&#xE872;</i></a>
-                </td>
+                <!--                <td>-->
+                <!--                    <a class="edit" title="Edit" data-toggle="tooltip" th:href="@{/admin/edit/__${account.id}__}"><i-->
+                <!--                            class="material-icons">&#xE254;</i></a>-->
+                <!--                    <a class="delete" title="Delete" data-toggle="tooltip" th:href="@{/admin/delete/__${account.id}__}"><i-->
+                <!--                            class="material-icons">&#xE872;</i></a>-->
+                <!--                </td>-->
             </tr>
             </tbody>
         </table>

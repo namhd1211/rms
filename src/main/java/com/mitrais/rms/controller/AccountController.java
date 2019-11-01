@@ -49,9 +49,15 @@ public class AccountController {
         return "redirect:/login";
     }
 
-    @GetMapping("/accounts")
+    @GetMapping("admin/accounts")
     public String listUser(Model model) {
         model.addAttribute("accounts", accountService.listAccount());
+        return "account/account-list";
+    }
+
+    @GetMapping("/my-accounts")
+    public String getAccountByAccNo(Model model, Authentication authentication) {
+        model.addAttribute("accounts", accountService.findByAccNo(authentication.getName()));
         return "account/account-list";
     }
 
@@ -66,7 +72,7 @@ public class AccountController {
             return ACCOUNT_SAVE;
         }
         accountService.save(accountDTO);
-        return "redirect:/accounts";
+        return "redirect:admin/accounts";
     }
 
     @GetMapping("/admin/save")
