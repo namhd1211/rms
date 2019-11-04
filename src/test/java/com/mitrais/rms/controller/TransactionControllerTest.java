@@ -42,7 +42,7 @@ public class TransactionControllerTest {
     private final TransactionDTO transactionDTO1 = new TransactionDTO(BigDecimal.valueOf(100));
 
     @Test
-    @WithMockUser(username="123456",roles={"USER","ADMIN"})
+    @WithMockUser(username = "123456", roles = {"USER", "ADMIN"})
     public void withDrawSummary() throws Exception {
         when(transactionService.withDraw(transactionDTO)).thenReturn(transactionDTO);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/withdraw").flashAttr("transaction", transactionDTO1);
@@ -50,7 +50,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    @WithMockUser(username="123456",roles={"USER","ADMIN"})
+    @WithMockUser(username = "123456", roles = {"USER", "ADMIN"})
     public void withDrawSummaryException() throws Exception {
         when(transactionService.withDraw(any())).thenThrow(new Exception("Invalid"));
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/withdraw").flashAttr("transaction", transactionDTO1);
