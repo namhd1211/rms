@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,7 +48,8 @@ public class AccountControllerTest {
     public void createWithExistedAccNo() throws Exception {
         when(accountService.findByAccNo(DataTest.ACC_NO)).thenReturn(account);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/admin/save").flashAttr("account", accountDTORequest);
-        mvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.forwardedUrl(DataTest.ACCOUNT_SAVE_URL));
+        mvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.forwardedUrl(DataTest.ACCOUNT_SAVE_URL))
+                .andExpect(MockMvcResultMatchers.model().attribute("existed", "Account Number is existed"));
     }
 
     @Test

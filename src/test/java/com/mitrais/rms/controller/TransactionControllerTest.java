@@ -44,9 +44,10 @@ public class TransactionControllerTest {
     @Test
     @WithMockUser(username = "123456", roles = {"USER", "ADMIN"})
     public void withDrawSummary() throws Exception {
-        when(transactionService.withDraw(transactionDTO)).thenReturn(transactionDTO);
+        when(transactionService.withDraw(any())).thenReturn(transactionDTO);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/withdraw").flashAttr("transaction", transactionDTO1);
-        mvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.forwardedUrl("summary/summary"));
+        mvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.forwardedUrl("summary/summary"))
+        .andExpect(MockMvcResultMatchers.model().attribute("transaction", transactionDTO));
     }
 
     @Test
@@ -54,6 +55,7 @@ public class TransactionControllerTest {
     public void withDrawSummaryException() throws Exception {
         when(transactionService.withDraw(any())).thenThrow(new Exception("Invalid"));
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/withdraw").flashAttr("transaction", transactionDTO1);
-        mvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.forwardedUrl("transaction/withdraw"));
+        mvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.forwardedUrl("transaction/withdraw"))
+        .andExpect(MockMvcResultMatchers.model().attribute("err", "Invalid"));
     }
 }

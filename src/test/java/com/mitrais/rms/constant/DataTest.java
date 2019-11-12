@@ -7,5 +7,5 @@ public class DataTest {
     public static final String ACC_NAME = "Nam";
     public static final String ACC_PIN = "123456";
     public static final long ID = 1l;
-    public static final String REDIRECT_ACCOUNTS_URL = "/accounts";
+    public static final String REDIRECT_ACCOUNTS_URL = "admin/accounts";
 }
