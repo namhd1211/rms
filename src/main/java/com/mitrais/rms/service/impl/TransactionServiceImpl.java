@@ -10,6 +10,7 @@ import com.mitrais.rms.repository.AccountRepository;
 import com.mitrais.rms.repository.TransactionRepository;
 import com.mitrais.rms.service.TransactionService;
 import com.mitrais.rms.utils.TransactionType;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
+@Slf4j
 public class TransactionServiceImpl implements TransactionService {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final TransactionRepository transactionRepository;
@@ -34,6 +36,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public TransactionDTO withDraw(TransactionDTO transactionDTO) throws Exception {
+        log.debug("with draw " + transactionDTO.getAmount());
         Account account = accountRepository.findAccountByAccNo(transactionDTO.getSrcAcc());
         BigDecimal newBalance = account.getBalance().subtract(transactionDTO.getAmount());
         // validate
@@ -51,6 +54,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public TransactionDTO transfer(TransactionDTO transactionDTO) throws Exception {
+        log.debug("transfer from " + transactionDTO.getSrcAcc() + "to" + transactionDTO.getDestAcc());
         Account account = accountRepository.findAccountByAccNo(transactionDTO.getSrcAcc());
         BigDecimal newBalance = account.getBalance().subtract(transactionDTO.getAmount());
         validateTransactionInput(transactionDTO.getAmount(), newBalance);
@@ -69,6 +73,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> listAllTransactionHistory(String srcAcc, String destAcc) {
+        log.debug("list all transaction history of " + srcAcc);
         return transactionRepository.getAllBySrcAccOrDestAcc(srcAcc, destAcc);
     }
 
@@ -82,6 +87,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private Transaction saveTransaction(TransactionDTO transactionDTO, TransactionType type) {
+        log.debug("save transaction of " + type + " of " + transactionDTO.getSrcAcc());
         ModelMapper modelMapper = new ModelMapper();
         Transaction transaction = modelMapper.map(transactionDTO, Transaction.class);
         transaction.setCreatedDate(LocalDateTime.now());

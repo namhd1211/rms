@@ -2,7 +2,6 @@ package com.mitrais.rms.service.impl;
 
 import com.mitrais.rms.entity.Account;
 import com.mitrais.rms.entity.Role;
-import com.mitrais.rms.exception.UserNotFoundException;
 import com.mitrais.rms.repository.AccountRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
