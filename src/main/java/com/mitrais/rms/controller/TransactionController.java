@@ -36,6 +36,13 @@ public class TransactionController {
         return "transaction/otherWithdraw";
     }
 
+    @GetMapping("/transaction")
+    public String transactionList(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("transactions", transactionService.listAllTransactionHistory(authentication.getName(), authentication.getName()));
+        return "transaction/transaction-history";
+    }
+
     @PostMapping("/otherWithdraw")
     public String otherWithDrawSummary(@Valid @ModelAttribute("transaction") TransactionDTO transactionDTO, BindingResult bindingResult, Model model) {
         String url = "transaction/otherWithdraw";

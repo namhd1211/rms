@@ -72,7 +72,7 @@ public class AccountController {
             return ACCOUNT_SAVE;
         }
         accountService.save(accountDTO);
-        return "redirect:admin/accounts";
+        return "redirect:/admin/accounts";
     }
 
     @GetMapping("/admin/save")

@@ -16,6 +16,7 @@
             <ul class="nav navbar-nav">
                 <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/accounts">Account</a></li>
                 <li sec:authorize="hasRole('ROLE_USER')"><a href="/my-accounts">My Account</a></li>
+                <li sec:authorize="hasRole('ROLE_USER')"><a href="/transaction">Transaction History</a></li>
                 <li><a href="/withdraw">Withdraw </a></li>
                 <li><a href="/transfer">Fund Transfer </a></li>
             </ul>

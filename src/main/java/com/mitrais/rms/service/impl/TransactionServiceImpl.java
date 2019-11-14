@@ -17,6 +17,7 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -64,6 +65,11 @@ public class TransactionServiceImpl implements TransactionService {
         transactionDTO.setCreatedDate(transaction.getCreatedDate().format(formatter));
         transactionDTO.setBalance(newBalance);
         return transactionDTO;
+    }
+
+    @Override
+    public List<Transaction> listAllTransactionHistory(String srcAcc, String destAcc) {
+        return transactionRepository.getAllBySrcAccOrDestAcc(srcAcc, destAcc);
     }
 
     private void validateTransactionInput(BigDecimal inputAmount, BigDecimal newBalance) throws Exception {
